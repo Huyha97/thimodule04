@@ -34,7 +34,7 @@ public class CityController {
     }
 
     @GetMapping("/list")
-    public ModelAndView showAll(@PageableDefault(value = 3) Pageable pageable,
+    public ModelAndView showAll(@PageableDefault(value = 5) Pageable pageable,
                                 @RequestParam Optional<String> search) {
         ModelAndView modelAndView = new ModelAndView("city/list");
         Page<City> cities;
@@ -65,6 +65,7 @@ public class CityController {
             return modelAndView;
         }
         iCityService.save(city);
+        modelAndView.addObject("status", true);
         return modelAndView;
     }
 
@@ -77,7 +78,8 @@ public class CityController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editCity(@ModelAttribute("city") City city,
+    public String editCity(
+            @Valid @ModelAttribute("city") City city,
                            BindingResult bindingResult, Model model,
                            @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()) {
@@ -90,7 +92,7 @@ public class CityController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PageableDefault(value = 3) Pageable pageable, @PathVariable("id") Long id) {
+    public ModelAndView delete(@PageableDefault(value = 5) Pageable pageable, @PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("city/list");
         iCityService.delete(id);
         Page<City> cities = iCityService.findAll(pageable);

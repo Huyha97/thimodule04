@@ -4,6 +4,7 @@ package com.example.thi_th.model;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.concurrent.CountDownLatch;
 
 @Entity
@@ -13,11 +14,11 @@ public class City {
     private Long id;
     @NotNull(message = "name not be null")
     private String name;
-    @Min(value = 1, message = "Area must be greater than 0")
+    @Pattern(regexp = "^[1-9]+[0-9]*$", message = "Area must be greater than 0")
     private String area;
-    @Min(value = 1, message = " Population must be greater than 0")
+    @Pattern(regexp = "^[1-9]+[0-9]*$", message = "population must be greater than 0")
     private String population;
-    @Min(value = 1, message = " GDP must be than greater 0")
+    @Pattern(regexp = "^[1-9]+[0-9]*$", message = "gdp must be greater than 0")
     private String gdp;
 
     private String description;
